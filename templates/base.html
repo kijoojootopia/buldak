@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}불닭 x 우지오더 모바일{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- 상단 헤더 -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="brand-sub">BULDAK ORDER</span>
+                <span class="brand-title">불닭 오더</span>
+            </div>
+            <div class="header-status">
+                <span class="flame-tag">HOT 4404 SHU</span>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="content-area">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- 하단 네비게이션 바 (우지커피 앱 스타일) -->
+        <nav class="bottom-nav">
+            <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+                <div class="nav-icon">HOME</div>
+                <div class="nav-label">홈</div>
+            </a>
+            <a href="{{ url_for('menu_page') }}" class="nav-item {% if request.endpoint == 'menu_page' %}active{% endif %}">
+                <div class="nav-icon">MENU</div>
+                <div class="nav-label">메뉴주문</div>
+            </a>
+            <a href="{{ url_for('membership_page') }}" class="nav-item {% if request.endpoint == 'membership_page' %}active{% endif %}">
+                <div class="nav-icon">STAMP</div>
+                <div class="nav-label">스탬프</div>
+            </a>
+            <button id="open-chat-btn" class="nav-item chat-trigger">
+                <div class="nav-icon">HOTCHI</div>
+                <div class="nav-label">호치톡</div>
+            </button>
+        </nav>
+
+        <!-- 닭 얼굴 호치 챗봇 모달 레이어 -->
+        <div id="chat-modal" class="chat-modal hidden">
+            <div class="chat-header">
+                <div class="rooster-profile">
+                    <!-- SVG 닭 캐릭터 얼굴 -->
+                    <svg class="rooster-svg" viewBox="0 0 100 100" width="44" height="44">
+                        <circle cx="50" cy="50" r="45" fill="#E62129"/>
+                        <!-- 닭 벼슬 -->
+                        <path d="M40,15 Q50,0 60,15 Q70,5 75,22 Q65,25 50,22 Z" fill="#8B0000"/>
+                        <!-- 눈 -->
+                        <circle cx="35" cy="45" r="7" fill="#FFFFFF"/>
+                        <circle cx="37" cy="45" r="3.5" fill="#111111"/>
+                        <circle cx="65" cy="45" r="7" fill="#FFFFFF"/>
+                        <circle cx="63" cy="45" r="3.5" fill="#111111"/>
+                        <!-- 부리 -->
+                        <polygon points="50,48 40,62 60,62" fill="#FFC800"/>
+                        <!-- 볼터치 (불닭 매운맛 표현) -->
+                        <circle cx="26" cy="56" r="6" fill="#FFA500" opacity="0.8"/>
+                        <circle cx="74" cy="56" r="6" fill="#FFA500" opacity="0.8"/>
+                        <!-- 턱수염 벼슬 -->
+                        <path d="M46,62 Q50,75 54,62 Z" fill="#8B0000"/>
+                    </svg>
+                    <div class="rooster-meta">
+                        <div class="rooster-name">호치 (불닭 오타쿠)</div>
+                        <div class="rooster-desc">불닭 레시피 덕질 12년차</div>
+                    </div>
+                </div>
+                <button id="close-chat-btn" class="close-btn">&times;</button>
+            </div>
+            <div id="chat-messages" class="chat-body">
+                <div class="chat-bubble bot">
+                    꼬꼬! 주인님 오셨습니까! 오늘도 화끈하게 스코빌 뿜어낼 불닭 라인업 완비했습니다. 조합 문의든 맵기 상담이든 무엇이든 물어보십시오!
+                </div>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chat-user-input" placeholder="호치에게 불닭 꿀조합을 물어보세요..." />
+                <button id="chat-send-btn">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

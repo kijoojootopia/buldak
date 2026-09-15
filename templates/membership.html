@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}불닭 스탬프 멤버십 - 불닭 오더{% endblock %}
+{% block content %}
+<div class="membership-screen">
+    <div class="stamp-card-wrap">
+        <div class="card-header">
+            <h3>불닭 매니아 멤버십</h3>
+            <span class="card-no">NO. 8839-4404</span>
+        </div>
+        <p class="card-sub">불닭볶음면 1그릇당 화끈한 스탬프 1개 적립</p>
+
+        <!-- 10개 스탬프 보드 -->
+        <div class="stamp-grid">
+            {% for i in range(1, 11) %}
+            <div class="stamp-slot {% if i <= 7 %}stamped{% endif %}">
+                {% if i <= 7 %}
+                <span class="stamp-mark">불</span>
+                {% else %}
+                <span class="stamp-number">{{ i }}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="stamp-status">
+            현재 적립 스탬프: <strong>7 / 10개</strong> (3개 더 모으면 치즈불닭 무료 쿠폰)
+        </div>
+    </div>
+
+    <div class="coupon-box">
+        <h4>보유 쿠폰</h4>
+        <div class="coupon-item">
+            <div class="cp-info">
+                <strong>[맵린이 구원팩] 쿨피스 무료 증정 쿠폰</strong>
+                <span>유효기간: 2026.12.31까지</span>
+            </div>
+            <button class="cp-use-btn" onclick="alert('쿨피스 쿠폰이 적용되었습니다 주인님!')">사용</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

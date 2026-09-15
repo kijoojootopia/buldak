@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}메뉴 주문 - 불닭 오더{% endblock %}
+{% block content %}
+<div class="menu-screen">
+    <!-- 카테고리 탭 (우지커피 서브페이지 구조) -->
+    <div class="category-tabs">
+        <a href="{{ url_for('menu_page', category='all') }}" class="tab {% if current_cat == 'all' %}active{% endif %}">전체</a>
+        <a href="{{ url_for('menu_page', category='classic') }}" class="tab {% if current_cat == 'classic' %}active{% endif %}">오리지널</a>
+        <a href="{{ url_for('menu_page', category='creamy') }}" class="tab {% if current_cat == 'creamy' %}active{% endif %}">크리미 라인</a>
+        <a href="{{ url_for('menu_page', category='challenge') }}" class="tab {% if current_cat == 'challenge' %}active{% endif %}">핵불닭 챌린지</a>
+        <a href="{{ url_for('menu_page', category='side') }}" class="tab {% if current_cat == 'side' %}active{% endif %}">사이드/소스</a>
+    </div>
+
+    <!-- 메뉴 리스트 -->
+    <div class="menu-list">
+        {% for item in items %}
+        <div class="menu-item-row">
+            <div class="menu-meta">
+                <span class="menu-badge">{{ item.badge }}</span>
+                <h4 class="menu-title">{{ item.name }}</h4>
+                <p class="menu-desc">{{ item.desc }}</p>
+                <div class="menu-stat">
+                    <span class="stat-shu">{{ item.scoville }}</span>
+                    <span class="stat-level">맵기 레벨 {{ item.spicy_level }}/5</span>
+                </div>
+                <div class="menu-price">{{ item.price }}</div>
+            </div>
+            <button class="order-action-btn" onclick="alert('{{ item.name }} 주문 픽업 접수 완료! 호치가 빠르게 조리합니다.')">
+                주문하기
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

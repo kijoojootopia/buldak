@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="home-screen">
+    <!-- 메인 프로모션 배너 -->
+    <section class="hero-banner">
+        <span class="hero-sub">우지오더 스타일 x 매운맛의 끝판왕</span>
+        <h2 class="hero-title">불닭 챌린지 시즌<br>극강의 매운맛 오더</h2>
+        <p class="hero-desc">지금 모바일로 미리 주문하고 갓 조리된 화끈함을 픽업하세요.</p>
+        <a href="{{ url_for('menu_page') }}" class="btn-primary">바로 주문하기</a>
+    </section>
+
+    <!-- 스코빌 미터기 위젯 -->
+    <section class="scoville-widget">
+        <div class="widget-title">오늘의 추천 맵부심 지수</div>
+        <div class="meter-bar">
+            <div class="meter-fill" style="width: 88%;"></div>
+        </div>
+        <div class="meter-label">
+            <span>순한맛 (까르보)</span>
+            <strong>핵불닭 10,000 SHU</strong>
+        </div>
+    </section>
+
+    <!-- 퀵 바로가기 그리드 (우지커피 앱 기능 차용) -->
+    <div class="quick-grid">
+        <a href="{{ url_for('menu_page', category='classic') }}" class="quick-card">
+            <span class="quick-tag">ORIGINAL</span>
+            <span class="quick-name">원조 불닭</span>
+        </a>
+        <a href="{{ url_for('menu_page', category='creamy') }}" class="quick-card">
+            <span class="quick-tag">CREAM</span>
+            <span class="quick-name">까르보/로제</span>
+        </a>
+        <a href="{{ url_for('menu_page', category='challenge') }}" class="quick-card flame-bg">
+            <span class="quick-tag">HELL</span>
+            <span class="quick-name">핵불닭 2X</span>
+        </a>
+        <a href="{{ url_for('membership_page') }}" class="quick-card">
+            <span class="quick-tag">REWARD</span>
+            <span class="quick-name">불스탬프 10장</span>
+        </a>
+    </div>
+
+    <!-- 인기 메뉴 프리뷰 슬라이더형 목록 -->
+    <section class="recommend-section">
+        <div class="sec-header">
+            <h3>실시간 인기 불닭</h3>
+            <a href="{{ url_for('menu_page') }}">전체보기 &gt;</a>
+        </div>
+        <div class="item-scroll-list">
+            {% for item in menu_items[:3] %}
+            <div class="item-card">
+                <span class="item-badge">{{ item.badge }}</span>
+                <h4 class="item-name">{{ item.name }}</h4>
+                <div class="item-scoville">맵기 지수: {{ item.scoville }}</div>
+                <div class="item-bottom">
+                    <span class="item-price">{{ item.price }}</span>
+                    <button class="cart-btn" onclick="alert('{{ item.name }}이(가) 장바구니에 담겼습니다 주인님!')">담기</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
