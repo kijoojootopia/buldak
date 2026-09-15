@@ -10,78 +10,136 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'buldak-secret-key-2026')
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 불닭볶음면 메뉴 데이터 (우지커피 스타일 메뉴판 구성)
+# 삼양 불닭 공식 라인업 전 제품 데이터
 MENU_ITEMS = [
     {
         "id": "b01",
-        "name": "원조 불닭볶음면",
+        "name": "불닭볶음면 (오리지널)",
         "category": "classic",
         "spicy_level": 4,
-        "scoville": "4,404 SHU",
-        "price": "1,800원",
-        "desc": "전설의 시작! 중독성 있는 강렬한 매운맛의 오리지널 불닭볶음면",
-        "badge": "BEST"
+        "scoville": 4404,
+        "scoville_text": "4,404 SHU",
+        "price": 1800,
+        "desc": "전설의 시작! 맛있게 매운 화끈한 불닭볶음면의 정석",
+        "badge": "BEST",
+        "img": "https://buldak.com/kr/product/resources/images/product_buldak.png"
     },
     {
         "id": "b02",
-        "name": "핵불닭볶음면 (2X Spicy)",
+        "name": "핵불닭볶면 (2X Spicy)",
         "category": "challenge",
         "spicy_level": 5,
-        "scoville": "10,000 SHU",
-        "price": "2,000원",
-        "desc": "진정한 매운맛 고수들만 도전하는 지옥의 2배 매운맛",
-        "badge": "CHALLENGE"
+        "scoville": 10000,
+        "scoville_text": "10,000 SHU",
+        "price": 2000,
+        "desc": "원조 대비 2배 매운 극강의 도전! 진정한 맵고수용",
+        "badge": "CHALLENGE",
+        "img": "https://buldak.com/kr/product/resources/images/product_2xbuldak.png"
     },
     {
         "id": "b03",
         "name": "까르보 불닭볶음면",
         "category": "creamy",
         "spicy_level": 2,
-        "scoville": "2,400 SHU",
-        "price": "2,000원",
-        "desc": "부드러운 크림과 불닭의 환상적인 만남! 맵찔이 입문용 최애템",
-        "badge": "POPULAR"
+        "scoville": 2400,
+        "scoville_text": "2,400 SHU",
+        "price": 2000,
+        "desc": "진한 크림 분말과 불닭 소스의 황금 밸런스, 맵린이 1위 픽",
+        "badge": "POPULAR",
+        "img": "https://buldak.com/kr/product/resources/images/product_carbobuldak.png"
     },
     {
         "id": "b04",
         "name": "치즈 불닭볶음면",
         "category": "creamy",
         "spicy_level": 3,
-        "scoville": "2,750 SHU",
-        "price": "1,900원",
-        "desc": "고소한 모짜렐라 치즈 분말이 더해져 매콤고소 풍미 폭발",
-        "badge": "HIT"
+        "scoville": 2750,
+        "scoville_text": "2,750 SHU",
+        "price": 1900,
+        "desc": "고소한 모짜렐라 치즈와 불닭의 조화로 풍부한 감칠맛",
+        "badge": "HIT",
+        "img": "https://buldak.com/kr/product/resources/images/product_cheesebuldak.png"
     },
     {
         "id": "b05",
         "name": "로제 불닭볶음면",
         "category": "creamy",
         "spicy_level": 2,
-        "scoville": "2,100 SHU",
-        "price": "2,100원",
-        "desc": "K-로제의 정석! 베이컨향과 크림이 어우러진 부드러운 매운맛",
-        "badge": "NEW"
+        "scoville": 2100,
+        "scoville_text": "2,100 SHU",
+        "price": 2100,
+        "desc": "K-로제의 정석! 베이컨과 크림의 풍미가 가득한 부드러운 매운맛",
+        "badge": "NEW",
+        "img": "https://buldak.com/kr/product/resources/images/product_rosebuldak.png"
     },
     {
         "id": "b06",
-        "name": "불닭 볶음밥 & 소스 키트",
-        "category": "side",
+        "name": "4가지치즈 불닭볶음면",
+        "category": "creamy",
+        "spicy_level": 2,
+        "scoville": 2000,
+        "scoville_text": "2,000 SHU",
+        "price": 2100,
+        "desc": "모짜렐라, 체다, 까망베르, 고다 4대 치즈의 깊은 풍미",
+        "badge": "CREAMY",
+        "img": "https://buldak.com/kr/product/resources/images/product_4cheesebuldak.png"
+    },
+    {
+        "id": "b07",
+        "name": "야키소바 불닭볶음면",
+        "category": "special",
+        "spicy_level": 3,
+        "scoville": 3000,
+        "scoville_text": "3,000 SHU",
+        "price": 2200,
+        "desc": "정통 일본식 야키소바 소스와 화끈한 불닭 소스의 크로스오버",
+        "badge": "GLOBAL",
+        "img": "https://buldak.com/kr/product/resources/images/product_yakisoba.png"
+    },
+    {
+        "id": "b08",
+        "name": "하바네로 라임 불닭볶음면",
+        "category": "special",
         "spicy_level": 4,
-        "scoville": "4,404 SHU",
-        "price": "3,500원",
-        "desc": "밥에 비벼먹는 테이블 전용 불닭 소스와 볶음밥 간편팩",
-        "badge": "SIDE"
+        "scoville": 4000,
+        "scoville_text": "4,000 SHU",
+        "price": 2200,
+        "desc": "하바네로 고추와 산뜻한 라임향의 이색적인 매콤새콤함",
+        "badge": "EXOTIC",
+        "img": "https://buldak.com/kr/product/resources/images/product_habanero.png"
+    },
+    {
+        "id": "b09",
+        "name": "불닭소스 (테이블 오리지널)",
+        "category": "source",
+        "spicy_level": 4,
+        "scoville": 4404,
+        "scoville_text": "4,404 SHU",
+        "price": 4500,
+        "desc": "어떤 요리든 불닭으로 변신시키는 만능 마법의 매운맛 소스",
+        "badge": "SAUCE",
+        "img": "https://buldak.com/kr/product/resources/images/product_buldaksauce.png"
+    },
+    {
+        "id": "b10",
+        "name": "핵불닭소스 (2X)",
+        "category": "source",
+        "spicy_level": 5,
+        "scoville": 10000,
+        "scoville_text": "10,000 SHU",
+        "price": 4800,
+        "desc": "단 한 방울로도 불을 뿜는 초고농축 핵불닭 소스",
+        "badge": "EXTREME",
+        "img": "https://buldak.com/kr/product/resources/images/product_2xsauce.png"
     }
 ]
 
 HOTCHI_PROMPT = """너는 불닭볶음면의 마스코트이자 지독한 '불닭 오타쿠' 닭 캐릭터 '호치(Hochi)'다.
-성격 및 말투:
-1. 불닭볶음면의 스코빌 지수(SHU), 물 버리는 타이밍, 남은 소스에 밥 비벼 먹는 꿀조합, 삼각김밥/스트링치즈 꿀조합에 비정상적으로 집착하는 진성 덕후다.
-2. 손님을 보면 "꼬끼오-! 맵부심 장전 완료하셨습니까 주인님?!" 또는 "불닭 냄새가 진동을 하는군요!" 하며 매우 열정적으로 맞이한다.
-3. 말투 끝에는 닭 울음소리나 매운맛 감탄사('꼬꼬!', '켁!', '스읍-하!')를 종종 섞는다.
-4. 매운맛 초보에게는 까르보나 4치즈 불닭을, 고수에게는 핵불닭 2X/3X나 소스 붓기 꿀팁을 적극 권장한다.
-5. 불닭과 관련 없는 질문을 받으면 "그것도 좋지만... 불닭에 스트링치즈 올리는 소리보다 중요한 건 세상에 없습니다 꼬꼬!"라며 대화를 불닭으로 유도한다.
-6. 주인님에게 깍듯하고 유쾌하게 존댓말을 쓴다. (이모지는 일절 쓰지 않는다.)
+성격 및 규칙:
+1. 손님(주인님)에게 깍듯하고 유쾌하게 존댓말을 쓴다.
+2. 답변에 이모지를 일절 사용하지 않는다.
+3. 불닭볶음면의 스코빌 지수(SHU), 면 삶는 시간, 물 8스푼 남기기 등 디테일한 조리법에 열광한다.
+4. 문장 사이나 끝에 닭 울음소리('꼬꼬!', '켁!', '스읍-하!')를 자연스럽게 섞는다.
 """
 
 @app.route('/')
@@ -101,6 +159,10 @@ def menu_page():
 def membership_page():
     return render_template('membership.html')
 
+@app.route('/api/products')
+def api_products():
+    return jsonify(MENU_ITEMS)
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.get_json() or {}
@@ -112,7 +174,7 @@ def chat():
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return jsonify({
-            'reply': f'[호치] 꼬꼬! OpenAI API 키가 아직 설정되지 않았습니다 주인님. 하지만 불닭을 향한 저의 열정(스코빌 4404 SHU)은 꺼지지 않습니다! 질문: {user_message}'
+            'reply': f'[호치] 꼬꼬! OpenAI API 키가 아직 설정되지 않았습니다 주인님. 하지만 불닭을 향한 저의 열정(4404 SHU)은 꺼지지 않습니다! 질문: {user_message}'
         })
 
     try:

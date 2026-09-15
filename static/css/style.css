@@ -6,39 +6,43 @@
 }
 
 body {
-    background-color: #121212;
+    background-color: #0b0b0b;
     display: flex;
     justify-content: center;
     min-height: 100vh;
 }
 
-/* 모바일 앱 뷰포트 규격 (최대 480px) */
+/* 모바일 앱 뷰포트 규격 (화면 잘림 방지 100dvh 고정 구조) */
 .mobile-container {
     width: 100%;
     max-width: 480px;
-    background-color: #1a1a1a;
+    height: 100dvh;
+    background-color: #171717;
     color: #f1f1f1;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 0 0 25px rgba(0,0,0,0.8);
+    box-shadow: 0 0 30px rgba(0,0,0,0.9);
+    overflow: hidden;
 }
 
 .app-header {
     background-color: #111111;
-    padding: 16px 20px;
+    padding: 12px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #E62129;
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
     z-index: 10;
 }
 
+.logo-link {
+    text-decoration: none;
+}
+
 .brand-sub {
-    font-size: 10px;
+    font-size: 9px;
     color: #FFA500;
     letter-spacing: 1px;
     display: block;
@@ -50,44 +54,56 @@ body {
     color: #FFFFFF;
 }
 
-.flame-tag {
-    background: #E62129;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 4px;
-    color: #FFFFFF;
+.cart-icon-btn {
+    background: #262626;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
+.cart-icon-btn .badge {
+    background: #E62129;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* 스크롤 가능한 본문 영역 */
 .content-area {
     flex: 1;
-    padding-bottom: 80px; /* 하단 네비게이션 여백 */
     overflow-y: auto;
+    padding-bottom: 74px; /* 하단 네비게이션 공간 확보 */
 }
 
-/* 홈 배너 */
+/* 프로모션 배너 */
 .hero-banner {
     background: linear-gradient(135deg, #8B0000 0%, #E62129 100%);
-    padding: 28px 20px;
+    padding: 24px 18px;
     color: #FFFFFF;
 }
 
 .hero-sub {
-    font-size: 12px;
-    text-transform: uppercase;
+    font-size: 11px;
     opacity: 0.9;
 }
 
 .hero-title {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 800;
-    margin: 8px 0;
+    margin: 6px 0;
     line-height: 1.3;
 }
 
 .hero-desc {
-    font-size: 13px;
-    margin-bottom: 16px;
+    font-size: 12px;
+    margin-bottom: 14px;
     opacity: 0.9;
 }
 
@@ -95,68 +111,121 @@ body {
     display: inline-block;
     background-color: #FFC800;
     color: #111;
-    padding: 10px 18px;
+    padding: 8px 16px;
     font-weight: 700;
     border-radius: 20px;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 12px;
 }
 
-/* 스코빌 미터기 */
-.scoville-widget {
-    background: #242424;
-    margin: 16px 20px;
+/* 스코빌 슬라이더 위젯 */
+.scoville-slider-box {
+    background: #222;
+    margin: 16px 18px;
     padding: 16px;
     border-radius: 12px;
+    border: 1px solid #333;
 }
 
-.widget-title {
+.widget-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.w-tag {
+    background: #E62129;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.widget-header h3 {
+    font-size: 14px;
+}
+
+.slider-guide {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 12px;
+}
+
+.slider-container input[type="range"] {
+    width: 100%;
+    accent-color: #E62129;
+    cursor: pointer;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-top: 6px;
+    color: #aaa;
+}
+
+.range-labels strong {
+    color: #FFA500;
     font-size: 13px;
+}
+
+.recommend-match-card {
+    margin-top: 14px;
+    background: #191919;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #FFA500;
+}
+
+.match-badge {
+    font-size: 10px;
+    color: #FFA500;
+    font-weight: bold;
+}
+
+#match-title {
+    font-size: 15px;
+    margin: 4px 0;
+}
+
+#match-desc {
+    font-size: 11px;
     color: #bbb;
     margin-bottom: 8px;
 }
 
-.meter-bar {
-    height: 10px;
-    background: #333;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.meter-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #FFA500, #E62129);
-}
-
-.meter-label {
+.match-action {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    margin-top: 6px;
-    color: #E62129;
+    align-items: center;
+}
+
+#match-price {
+    font-weight: bold;
+    color: #fff;
 }
 
 /* 퀵 그리드 */
 .quick-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin: 0 20px 20px;
+    gap: 8px;
+    margin: 0 18px 18px;
 }
 
 .quick-card {
-    background: #262626;
-    padding: 16px;
-    border-radius: 10px;
+    background: #242424;
+    padding: 14px;
+    border-radius: 8px;
     text-decoration: none;
-    display: flex;
-    flex-direction: column;
     border: 1px solid #333;
 }
 
 .quick-card.flame-bg {
     border-color: #E62129;
-    background: #2a1616;
+    background: #2a1515;
 }
 
 .quick-tag {
@@ -166,7 +235,7 @@ body {
 }
 
 .quick-name {
-    font-size: 14px;
+    font-size: 13px;
     color: #fff;
     margin-top: 4px;
     font-weight: bold;
@@ -174,19 +243,18 @@ body {
 
 /* 추천 리스트 */
 .recommend-section {
-    padding: 0 20px;
+    padding: 0 18px;
 }
 
 .sec-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .sec-header h3 {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 15px;
 }
 
 .sec-header a {
@@ -196,41 +264,38 @@ body {
 }
 
 .item-card {
-    background: #242424;
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 12px;
-    border-left: 4px solid #E62129;
+    background: #222;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid #E62129;
 }
 
 .item-badge {
     background: #E62129;
     font-size: 9px;
-    padding: 2px 6px;
+    padding: 2px 5px;
     border-radius: 3px;
     font-weight: bold;
 }
 
 .item-name {
-    font-size: 15px;
-    margin: 6px 0;
+    font-size: 14px;
+    margin: 4px 0;
 }
 
 .item-scoville {
     font-size: 11px;
     color: #FFA500;
-    margin-bottom: 8px;
-}
-
-.item-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-bottom: 4px;
 }
 
 .item-price {
-    font-weight: 700;
-    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .cart-btn {
@@ -243,210 +308,50 @@ body {
     cursor: pointer;
 }
 
-/* 메뉴 서브페이지 */
-.category-tabs {
-    display: flex;
-    gap: 8px;
-    padding: 14px 20px;
-    background: #191919;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-bottom: 1px solid #333;
-}
-
-.category-tabs::-webkit-scrollbar {
-    display: none;
-}
-
-.tab {
-    color: #999;
-    text-decoration: none;
-    font-size: 13px;
-    padding: 6px 14px;
-    border-radius: 16px;
-    background: #252525;
-}
-
-.tab.active {
+/* 플로팅 호치 챗봇 버튼 */
+.floating-hochi-btn {
+    position: absolute;
+    bottom: 80px;
+    right: 16px;
     background: #E62129;
-    color: #fff;
-    font-weight: bold;
-}
-
-.menu-list {
-    padding: 16px 20px;
-}
-
-.menu-item-row {
-    background: #242424;
-    padding: 14px;
-    border-radius: 10px;
-    margin-bottom: 14px;
+    border: 2px solid #FFC800;
+    border-radius: 30px;
+    padding: 6px 12px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
-
-.menu-badge {
-    background: #FFC800;
-    color: #111;
-    font-size: 9px;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 3px;
-}
-
-.menu-title {
-    font-size: 15px;
-    margin: 4px 0 2px;
-}
-
-.menu-desc {
-    font-size: 11px;
-    color: #aaa;
-    max-width: 250px;
-    margin-bottom: 6px;
-}
-
-.menu-stat {
-    font-size: 11px;
-    color: #FF8C00;
-    margin-bottom: 4px;
-}
-
-.menu-price {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.order-action-btn {
-    background: #E62129;
-    color: #fff;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: bold;
+    gap: 6px;
     cursor: pointer;
-    font-size: 12px;
+    box-shadow: 0 4px 15px rgba(230, 33, 41, 0.6);
+    z-index: 15;
 }
 
-/* 멤버십 서브페이지 */
-.membership-screen {
-    padding: 20px;
-}
-
-.stamp-card-wrap {
-    background: #262626;
-    border: 2px solid #E62129;
-    border-radius: 14px;
-    padding: 18px;
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-no {
-    font-size: 11px;
-    color: #888;
-}
-
-.card-sub {
-    font-size: 11px;
-    color: #aaa;
-    margin: 6px 0 16px;
-}
-
-.stamp-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-bottom: 14px;
-}
-
-.stamp-slot {
-    aspect-ratio: 1;
-    background: #1b1b1b;
-    border: 1px dashed #555;
+.hochi-avatar-img {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #fff;
+    object-fit: cover;
+}
+
+.hochi-chat-label {
     font-size: 12px;
-    color: #666;
+    font-weight: 800;
+    color: #fff;
 }
 
-.stamp-slot.stamped {
-    background: #E62129;
-    border: none;
-    color: #FFC800;
-    font-weight: bold;
-    font-size: 15px;
-    box-shadow: 0 0 8px rgba(230, 33, 41, 0.6);
-}
-
-.stamp-status {
-    font-size: 12px;
-    color: #ccc;
-    text-align: center;
-}
-
-.coupon-box {
-    margin-top: 24px;
-}
-
-.coupon-box h4 {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.coupon-item {
-    background: #262626;
-    padding: 14px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 4px solid #FFC800;
-}
-
-.cp-info strong {
-    display: block;
-    font-size: 13px;
-    margin-bottom: 4px;
-}
-
-.cp-info span {
-    font-size: 11px;
-    color: #888;
-}
-
-.cp-use-btn {
-    background: #FFC800;
-    color: #111;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-/* 하단 네비게이션 바 */
+/* 하단 고정 내비게이션 바 */
 .bottom-nav {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 64px;
+    height: 60px;
     background: #111;
     border-top: 1px solid #2a2a2a;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 10;
+    z-index: 20;
 }
 
 .nav-item {
@@ -461,7 +366,7 @@ body {
 }
 
 .nav-icon {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
     margin-bottom: 2px;
 }
@@ -474,35 +379,137 @@ body {
     color: #E62129;
 }
 
-.chat-trigger {
+/* 모달 공통 레이어 */
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 30;
+}
+
+.modal-sheet {
+    background: #1e1e1e;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-top: 2px solid #E62129;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-close-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 16px 18px;
+    overflow-y: auto;
+    max-height: 280px;
+}
+
+.cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.cart-item-title {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.cart-item-price {
+    font-size: 12px;
     color: #FFA500;
 }
 
-/* 호치 챗봇 모달창 */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    background: #333;
+    border: none;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-footer {
+    padding: 14px 18px;
+    border-top: 1px solid #333;
+    background: #171717;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.total-row strong {
+    color: #FFC800;
+    font-size: 16px;
+}
+
+.btn-checkout {
+    width: 100%;
+    background: #E62129;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 챗봇 모달창 */
 .chat-modal {
     position: absolute;
-    bottom: 64px;
+    bottom: 60px;
     left: 0;
     right: 0;
-    height: 72%;
-    background: #1c1c1c;
+    height: 75%;
+    background: #1a1a1a;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     border-top: 2px solid #E62129;
     display: flex;
     flex-direction: column;
-    z-index: 20;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.7);
-    transition: transform 0.25s ease-in-out;
+    z-index: 25;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
 }
 
-.chat-modal.hidden {
-    display: none;
+.hidden {
+    display: none !important;
 }
 
 .chat-header {
-    padding: 12px 16px;
-    background: #242424;
+    padding: 10px 16px;
+    background: #222;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     display: flex;
@@ -511,34 +518,33 @@ body {
     border-bottom: 1px solid #333;
 }
 
-.rooster-profile {
+.hochi-profile {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.rooster-name {
-    font-size: 13px;
-    font-weight: bold;
-    color: #FFF;
+.hochi-head {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    object-fit: cover;
 }
 
-.rooster-desc {
+.hochi-name {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hochi-desc {
     font-size: 10px;
     color: #FFA500;
 }
 
-.close-btn {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 22px;
-    cursor: pointer;
-}
-
 .chat-body {
     flex: 1;
-    padding: 16px;
+    padding: 14px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -546,44 +552,40 @@ body {
 }
 
 .chat-bubble {
-    max-width: 80%;
-    padding: 10px 14px;
-    border-radius: 12px;
+    max-width: 82%;
+    padding: 10px 12px;
+    border-radius: 10px;
     font-size: 13px;
     line-height: 1.4;
     word-break: break-word;
 }
 
 .chat-bubble.bot {
-    background: #2d1818;
+    background: #2b1717;
     border: 1px solid #8B0000;
-    color: #fff;
     align-self: flex-start;
-    border-bottom-left-radius: 2px;
 }
 
 .chat-bubble.user {
     background: #E62129;
-    color: #fff;
     align-self: flex-end;
-    border-bottom-right-radius: 2px;
 }
 
 .chat-input-row {
     padding: 10px 14px;
     display: flex;
     gap: 8px;
-    background: #181818;
+    background: #141414;
     border-top: 1px solid #2a2a2a;
 }
 
 .chat-input-row input {
     flex: 1;
-    background: #2b2b2b;
+    background: #252525;
     border: 1px solid #444;
     color: #fff;
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 13px;
     outline: none;
 }
@@ -592,8 +594,8 @@ body {
     background: #E62129;
     color: #fff;
     border: none;
-    padding: 0 16px;
-    border-radius: 8px;
+    padding: 0 14px;
+    border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
 }
