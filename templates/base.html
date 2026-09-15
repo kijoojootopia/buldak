@@ -179,9 +179,16 @@
         .recommend-match-card {
             margin-top: 14px;
             background: #191919;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 10px;
             border-left: 4px solid #FFA500;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .recommend-match-meta {
+            flex: 1;
         }
 
         .match-badge {
@@ -268,13 +275,28 @@
 
         .item-card {
             background: #222;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
             border-left: 3px solid #E62129;
+        }
+
+        .item-visual {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background: #2d1818;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 1;
         }
 
         .item-badge {
@@ -318,21 +340,13 @@
             background: #E62129;
             border: 2px solid #FFC800;
             border-radius: 30px;
-            padding: 6px 12px;
+            padding: 6px 14px 6px 8px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(230, 33, 41, 0.6);
             z-index: 15;
-        }
-
-        .hochi-avatar-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #fff;
-            object-fit: cover;
         }
 
         .hochi-chat-label {
@@ -523,14 +537,6 @@
             gap: 10px;
         }
 
-        .hochi-head {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #fff;
-            object-fit: cover;
-        }
-
         .hochi-name {
             font-size: 13px;
             font-weight: bold;
@@ -599,7 +605,6 @@
             cursor: pointer;
         }
 
-        /* 멤버십 전용 그리드 복구 */
         .membership-screen {
             padding: 20px 18px;
         }
@@ -667,10 +672,6 @@
             text-align: center;
         }
 
-        .stamp-status strong {
-            color: #FFA500;
-        }
-
         .coupon-box h4 {
             font-size: 14px;
             margin-bottom: 10px;
@@ -729,9 +730,18 @@
             {% block content %}{% endblock %}
         </main>
 
-        <!-- 플로팅 호치 챗봇 열기 버튼 -->
+        <!-- 플로팅 호치 챗봇 열기 버튼 (벡터 호치 얼굴 내장) -->
         <button id="open-chat-btn" class="floating-hochi-btn" aria-label="호치 챗봇 열기">
-            <img src="https://buldak.com/kr/product/resources/images/hochi.png" alt="호치" class="hochi-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=100&auto=format&fit=crop&q=60'">
+            <svg viewBox="0 0 100 100" width="30" height="30">
+                <circle cx="50" cy="50" r="45" fill="#FFFFFF"/>
+                <path d="M42,12 Q50,0 58,12 Q68,4 70,22 Q60,26 48,22 Z" fill="#E62129"/>
+                <circle cx="36" cy="46" r="6" fill="#111111"/>
+                <circle cx="64" cy="46" r="6" fill="#111111"/>
+                <polygon points="50,50 38,64 62,64" fill="#FFC800"/>
+                <circle cx="28" cy="58" r="6" fill="#FF8C00" opacity="0.6"/>
+                <circle cx="72" cy="58" r="6" fill="#FF8C00" opacity="0.6"/>
+                <path d="M46,64 Q50,76 54,64 Z" fill="#E62129"/>
+            </svg>
             <span class="hochi-chat-label">호치톡</span>
         </button>
 
@@ -755,7 +765,7 @@
             </button>
         </nav>
 
-        <!-- 장바구니 확인 모달 레이어 -->
+        <!-- 장바구니 확인 모달 -->
         <div id="cart-modal" class="modal-backdrop hidden">
             <div class="modal-sheet">
                 <div class="modal-header">
@@ -779,7 +789,16 @@
         <div id="chat-modal" class="chat-modal hidden">
             <div class="chat-header">
                 <div class="hochi-profile">
-                    <img src="https://buldak.com/kr/product/resources/images/hochi.png" alt="호치" class="hochi-head" onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=100&auto=format&fit=crop&q=60'">
+                    <svg viewBox="0 0 100 100" width="36" height="36">
+                        <circle cx="50" cy="50" r="45" fill="#FFFFFF"/>
+                        <path d="M42,12 Q50,0 58,12 Q68,4 70,22 Q60,26 48,22 Z" fill="#E62129"/>
+                        <circle cx="36" cy="46" r="6" fill="#111111"/>
+                        <circle cx="64" cy="46" r="6" fill="#111111"/>
+                        <polygon points="50,50 38,64 62,64" fill="#FFC800"/>
+                        <circle cx="28" cy="58" r="6" fill="#FF8C00" opacity="0.6"/>
+                        <circle cx="72" cy="58" r="6" fill="#FF8C00" opacity="0.6"/>
+                        <path d="M46,64 Q50,76 54,64 Z" fill="#E62129"/>
+                    </svg>
                     <div class="hochi-meta">
                         <div class="hochi-name">호치 (불닭 오타쿠)</div>
                         <div class="hochi-desc">스코빌 지수 연구 12년차 닭</div>
