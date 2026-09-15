@@ -28,12 +28,23 @@
 
         <!-- 슬라이더 연동 추천 카드 -->
         <div id="slider-recommend-card" class="recommend-match-card">
-            <div class="match-badge">호치 추천 매칭</div>
-            <h4 id="match-title">불닭볶음면 (오리지널)</h4>
-            <p id="match-desc">화끈한 원조의 매운맛! 4,404 SHU 수준에 딱 맞습니다.</p>
-            <div class="match-action">
-                <span id="match-price">1,800원</span>
-                <button id="match-add-cart-btn" class="cart-btn">담기</button>
+            <div class="item-visual">
+                <!-- 불닭 전용 컵라면 그래픽 -->
+                <svg viewBox="0 0 60 60" width="38" height="38">
+                    <polygon points="10,18 50,18 44,52 16,52" fill="#E62129"/>
+                    <ellipse cx="30" cy="18" rx="20" ry="5" fill="#FFC800"/>
+                    <rect x="20" y="28" width="20" height="8" rx="2" fill="#FFFFFF"/>
+                    <text x="30" y="34" font-size="6" font-weight="900" fill="#E62129" text-anchor="middle">불닭</text>
+                </svg>
+            </div>
+            <div class="recommend-match-meta">
+                <div class="match-badge">호치 추천 매칭</div>
+                <h4 id="match-title">불닭볶음면 (오리지널)</h4>
+                <p id="match-desc">화끈한 원조의 매운맛! 4,404 SHU 수준에 딱 맞습니다.</p>
+                <div class="match-action">
+                    <span id="match-price">1,800원</span>
+                    <button id="match-add-cart-btn" class="cart-btn">담기</button>
+                </div>
             </div>
         </div>
     </section>
@@ -58,7 +69,7 @@
         </a>
     </div>
 
-    <!-- 인기 메뉴 그리드 리스트 -->
+    <!-- 인기 메뉴 리스트 -->
     <section class="recommend-section">
         <div class="sec-header">
             <h3>실시간 인기 불닭</h3>
@@ -67,6 +78,14 @@
         <div class="item-vertical-list">
             {% for item in menu_items[:4] %}
             <div class="item-card">
+                <div class="item-visual">
+                    <svg viewBox="0 0 60 60" width="34" height="34">
+                        <polygon points="10,18 50,18 44,52 16,52" fill="{% if '핵' in item.name %}#111111{% elif '까르보' in item.name or '로제' in item.name %}#FF69B4{% else %}#E62129{% endif %}"/>
+                        <ellipse cx="30" cy="18" rx="20" ry="5" fill="#FFC800"/>
+                        <rect x="18" y="28" width="24" height="9" rx="2" fill="#FFFFFF"/>
+                        <text x="30" y="35" font-size="6" font-weight="900" fill="#111111" text-anchor="middle">HOT</text>
+                    </svg>
+                </div>
                 <div class="item-info">
                     <span class="item-badge">{{ item.badge }}</span>
                     <h4 class="item-name">{{ item.name }}</h4>
