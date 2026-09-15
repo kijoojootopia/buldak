@@ -4,74 +4,788 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{% block title %}불닭 x 우지오더 모바일{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            height: 100dvh;
+            background-color: #171717;
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.9);
+            overflow: hidden;
+        }
+
+        .app-header {
+            background-color: #111111;
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #E62129;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .logo-link {
+            text-decoration: none;
+        }
+
+        .brand-sub {
+            font-size: 9px;
+            color: #FFA500;
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #FFFFFF;
+        }
+
+        .cart-icon-btn {
+            background: #262626;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cart-icon-btn .badge {
+            background: #E62129;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 74px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #8B0000 0%, #E62129 100%);
+            padding: 24px 18px;
+            color: #FFFFFF;
+        }
+
+        .hero-sub {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 6px 0;
+            line-height: 1.3;
+        }
+
+        .hero-desc {
+            font-size: 12px;
+            margin-bottom: 14px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: #FFC800;
+            color: #111;
+            padding: 8px 16px;
+            font-weight: 700;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .scoville-slider-box {
+            background: #222;
+            margin: 16px 18px;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .w-tag {
+            background: #E62129;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .widget-header h3 {
+            font-size: 14px;
+        }
+
+        .slider-guide {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .slider-container input[type="range"] {
+            width: 100%;
+            accent-color: #E62129;
+            cursor: pointer;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-top: 6px;
+            color: #aaa;
+        }
+
+        .range-labels strong {
+            color: #FFA500;
+            font-size: 13px;
+        }
+
+        .recommend-match-card {
+            margin-top: 14px;
+            background: #191919;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #FFA500;
+        }
+
+        .match-badge {
+            font-size: 10px;
+            color: #FFA500;
+            font-weight: bold;
+        }
+
+        #match-title {
+            font-size: 15px;
+            margin: 4px 0;
+        }
+
+        #match-desc {
+            font-size: 11px;
+            color: #bbb;
+            margin-bottom: 8px;
+        }
+
+        .match-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #match-price {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 0 18px 18px;
+        }
+
+        .quick-card {
+            background: #242424;
+            padding: 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid #333;
+        }
+
+        .quick-card.flame-bg {
+            border-color: #E62129;
+            background: #2a1515;
+        }
+
+        .quick-tag {
+            font-size: 10px;
+            color: #FFC800;
+            font-weight: 700;
+        }
+
+        .quick-name {
+            font-size: 13px;
+            color: #fff;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        .recommend-section {
+            padding: 0 18px;
+        }
+
+        .sec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .sec-header h3 {
+            font-size: 15px;
+        }
+
+        .sec-header a {
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+        }
+
+        .item-card {
+            background: #222;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid #E62129;
+        }
+
+        .item-badge {
+            background: #E62129;
+            font-size: 9px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .item-name {
+            font-size: 14px;
+            margin: 4px 0;
+        }
+
+        .item-scoville {
+            font-size: 11px;
+            color: #FFA500;
+            margin-bottom: 4px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .cart-btn {
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .floating-hochi-btn {
+            position: absolute;
+            bottom: 80px;
+            right: 16px;
+            background: #E62129;
+            border: 2px solid #FFC800;
+            border-radius: 30px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 33, 41, 0.6);
+            z-index: 15;
+        }
+
+        .hochi-avatar-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .hochi-chat-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #111;
+            border-top: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #777;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-icon {
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+        }
+
+        .nav-item.active {
+            color: #E62129;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            z-index: 30;
+        }
+
+        .modal-sheet {
+            background: #1e1e1e;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            border-top: 2px solid #E62129;
+            max-height: 80%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 14px 18px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icon-close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 16px 18px;
+            overflow-y: auto;
+            max-height: 280px;
+        }
+
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .cart-item-title {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .cart-item-price {
+            font-size: 12px;
+            color: #FFA500;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            background: #333;
+            border: none;
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            padding: 14px 18px;
+            border-top: 1px solid #333;
+            background: #171717;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .total-row strong {
+            color: #FFC800;
+            font-size: 16px;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: #E62129;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .chat-modal {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            height: 75%;
+            background: #1a1a1a;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            border-top: 2px solid #E62129;
+            display: flex;
+            flex-direction: column;
+            z-index: 25;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .chat-header {
+            padding: 10px 16px;
+            background: #222;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .hochi-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hochi-head {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .hochi-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .hochi-desc {
+            font-size: 10px;
+            color: #FFA500;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 14px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-bubble {
+            max-width: 82%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .chat-bubble.bot {
+            background: #2b1717;
+            border: 1px solid #8B0000;
+            align-self: flex-start;
+        }
+
+        .chat-bubble.user {
+            background: #E62129;
+            align-self: flex-end;
+        }
+
+        .chat-input-row {
+            padding: 10px 14px;
+            display: flex;
+            gap: 8px;
+            background: #141414;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .chat-input-row input {
+            flex: 1;
+            background: #252525;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .chat-input-row button {
+            background: #E62129;
+            color: #fff;
+            border: none;
+            padding: 0 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 멤버십 전용 그리드 복구 */
+        .membership-screen {
+            padding: 20px 18px;
+        }
+
+        .stamp-card-wrap {
+            background: #242424;
+            border: 2px solid #E62129;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-no {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .card-sub {
+            font-size: 12px;
+            color: #aaa;
+            margin: 8px 0 16px;
+        }
+
+        .stamp-grid {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .stamp-slot {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #181818;
+            border: 1px dashed #555;
+            border-radius: 50%;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .stamp-slot.stamped {
+            background: #E62129;
+            border: none;
+            box-shadow: 0 0 10px rgba(230, 33, 41, 0.7);
+        }
+
+        .stamp-slot.stamped .stamp-mark {
+            color: #FFC800;
+            font-weight: 900;
+            font-size: 15px;
+        }
+
+        .stamp-status {
+            font-size: 12px;
+            color: #ddd;
+            text-align: center;
+        }
+
+        .stamp-status strong {
+            color: #FFA500;
+        }
+
+        .coupon-box h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .coupon-item {
+            background: #242424;
+            padding: 14px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #FFC800;
+        }
+
+        .cp-info strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .cp-info span {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .cp-use-btn {
+            background: #FFC800;
+            color: #111;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="mobile-container">
         <!-- 상단 헤더 -->
         <header class="app-header">
-            <div class="logo">
+            <a href="{{ url_for('home') }}" class="logo-link">
                 <span class="brand-sub">BULDAK ORDER</span>
                 <span class="brand-title">불닭 오더</span>
-            </div>
-            <div class="header-status">
-                <span class="flame-tag">HOT 4404 SHU</span>
+            </a>
+            <div class="header-right">
+                <button id="cart-header-btn" class="cart-icon-btn">
+                    장바구니 <span id="cart-count-badge" class="badge">0</span>
+                </button>
             </div>
         </header>
 
-        <!-- 메인 콘텐츠 영역 -->
+        <!-- 본문 콘텐츠 영역 -->
         <main class="content-area">
             {% block content %}{% endblock %}
         </main>
 
-        <!-- 하단 네비게이션 바 (우지커피 앱 스타일) -->
+        <!-- 플로팅 호치 챗봇 열기 버튼 -->
+        <button id="open-chat-btn" class="floating-hochi-btn" aria-label="호치 챗봇 열기">
+            <img src="https://buldak.com/kr/product/resources/images/hochi.png" alt="호치" class="hochi-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=100&auto=format&fit=crop&q=60'">
+            <span class="hochi-chat-label">호치톡</span>
+        </button>
+
+        <!-- 하단 고정 내비게이션 바 -->
         <nav class="bottom-nav">
             <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-                <div class="nav-icon">HOME</div>
-                <div class="nav-label">홈</div>
+                <span class="nav-icon">HOME</span>
+                <span class="nav-label">홈</span>
             </a>
             <a href="{{ url_for('menu_page') }}" class="nav-item {% if request.endpoint == 'menu_page' %}active{% endif %}">
-                <div class="nav-icon">MENU</div>
-                <div class="nav-label">메뉴주문</div>
+                <span class="nav-icon">MENU</span>
+                <span class="nav-label">메뉴전체</span>
             </a>
             <a href="{{ url_for('membership_page') }}" class="nav-item {% if request.endpoint == 'membership_page' %}active{% endif %}">
-                <div class="nav-icon">STAMP</div>
-                <div class="nav-label">스탬프</div>
+                <span class="nav-icon">STAMP</span>
+                <span class="nav-label">스탬프</span>
             </a>
-            <button id="open-chat-btn" class="nav-item chat-trigger">
-                <div class="nav-icon">HOTCHI</div>
-                <div class="nav-label">호치톡</div>
+            <button id="nav-cart-btn" class="nav-item">
+                <span class="nav-icon">CART</span>
+                <span class="nav-label">장바구니</span>
             </button>
         </nav>
 
-        <!-- 닭 얼굴 호치 챗봇 모달 레이어 -->
+        <!-- 장바구니 확인 모달 레이어 -->
+        <div id="cart-modal" class="modal-backdrop hidden">
+            <div class="modal-sheet">
+                <div class="modal-header">
+                    <h3>내 주문 장바구니</h3>
+                    <button id="close-cart-btn" class="icon-close-btn">&times;</button>
+                </div>
+                <div id="cart-items-wrap" class="modal-body">
+                    <p class="empty-cart-msg">장바구니가 비어 있습니다 주인님!</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="total-row">
+                        <span>총 결제금액</span>
+                        <strong id="cart-total-price">0원</strong>
+                    </div>
+                    <button id="cart-checkout-btn" class="btn-checkout">바로 결제/픽업 요청</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 호치 챗봇 모달 레이어 -->
         <div id="chat-modal" class="chat-modal hidden">
             <div class="chat-header">
-                <div class="rooster-profile">
-                    <!-- SVG 닭 캐릭터 얼굴 -->
-                    <svg class="rooster-svg" viewBox="0 0 100 100" width="44" height="44">
-                        <circle cx="50" cy="50" r="45" fill="#E62129"/>
-                        <!-- 닭 벼슬 -->
-                        <path d="M40,15 Q50,0 60,15 Q70,5 75,22 Q65,25 50,22 Z" fill="#8B0000"/>
-                        <!-- 눈 -->
-                        <circle cx="35" cy="45" r="7" fill="#FFFFFF"/>
-                        <circle cx="37" cy="45" r="3.5" fill="#111111"/>
-                        <circle cx="65" cy="45" r="7" fill="#FFFFFF"/>
-                        <circle cx="63" cy="45" r="3.5" fill="#111111"/>
-                        <!-- 부리 -->
-                        <polygon points="50,48 40,62 60,62" fill="#FFC800"/>
-                        <!-- 볼터치 (불닭 매운맛 표현) -->
-                        <circle cx="26" cy="56" r="6" fill="#FFA500" opacity="0.8"/>
-                        <circle cx="74" cy="56" r="6" fill="#FFA500" opacity="0.8"/>
-                        <!-- 턱수염 벼슬 -->
-                        <path d="M46,62 Q50,75 54,62 Z" fill="#8B0000"/>
-                    </svg>
-                    <div class="rooster-meta">
-                        <div class="rooster-name">호치 (불닭 오타쿠)</div>
-                        <div class="rooster-desc">불닭 레시피 덕질 12년차</div>
+                <div class="hochi-profile">
+                    <img src="https://buldak.com/kr/product/resources/images/hochi.png" alt="호치" class="hochi-head" onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=100&auto=format&fit=crop&q=60'">
+                    <div class="hochi-meta">
+                        <div class="hochi-name">호치 (불닭 오타쿠)</div>
+                        <div class="hochi-desc">스코빌 지수 연구 12년차 닭</div>
                     </div>
                 </div>
-                <button id="close-chat-btn" class="close-btn">&times;</button>
+                <button id="close-chat-btn" class="icon-close-btn">&times;</button>
             </div>
             <div id="chat-messages" class="chat-body">
                 <div class="chat-bubble bot">
